@@ -12,7 +12,7 @@ export default function ListItem({
     const priceChangeColor = priceChangePercentage7d > 0 ? '#34C759' : '#FF3B30'
 
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity>
             <View style={styles.itemWrapper}>
                 <View style={styles.leftWrapper}>
                     <Image source={{ uri: logoUrl }} style={styles.image} />
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
+        color: '#ccced4',
     },
     subtitle: {
         marginTop: 4,
