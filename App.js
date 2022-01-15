@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native'
 import ListItem from './components/ListItem'
 import { SAMPLE_DATA } from './assets/data/sampleData'
+import { useEffect, useState } from 'react'
 
 export const { width: SIZE } = Dimensions.get('window')
+
+import { getMarketData } from './services/cryptoService'
 
 const ListHeader = () => (
     <>
@@ -14,11 +17,21 @@ const ListHeader = () => (
 )
 
 export default function App() {
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        const fetchMarketData = async () => {
+            const marketData = await getMarketData()
+            setData(marketData)
+        }
+        fetchMarketData()
+    }, [])
+
     return (
         <View style={styles.container}>
             <FlatList
                 keyExtractor={(item) => item.id}
-                data={SAMPLE_DATA}
+                data={data}
                 renderItem={({ item }) => (
                     <ListItem
                         name={item.name}
@@ -40,7 +53,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#121213',
+        backgroundColor: '#070708',
     },
     title: {
         fontSize: 24,
@@ -56,5 +69,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#38393b',
         marginHorizontal: 16,
         marginTop: 16,
+        marginBottom: 10,
     },
 })
